@@ -1,3 +1,4 @@
+const fs = require('fs');
 /* global ClipboardJS */
 /* global Tone */
 /* global Grid */
@@ -74,6 +75,7 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     this.setNotes(600, 600);
     this.setNotes(0, 0);
     this.setNotes(400, 400);
+    this.setNoteFromFile();
 
     // Mute button element
 
@@ -289,5 +291,23 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     else this.resetSharingURL();
     // Make sure audio context is running
     Tone.context.resume();
+  }
+
+  setNoteFromFile() {
+    this.setNotes(300, 0);
+    fs.readFile('https://love-bot.xyz/synth/test.txt', 'utf8', (err, data) => {
+      if (err) {
+        alert(err);
+        return;
+      }
+      alert(data);
+    });
+
+    /*
+    const file = new FileReader();
+    let a = file.readAsText('/synth/test.txt');
+    alert(a);
+    a = 'dan';
+    */
   }
 }

@@ -4,7 +4,7 @@
 /* global Util */
 /** Main class of ToneMatrix Redux, a pentatonic step sequencer */
 class ToneMatrix { // eslint-disable-line no-unused-vars
-  /**
+/**
    * Creates a new ToneMatrix Redux instance, and attach it to existing DOM elements
    * @param {Element} canvasWrapperEl - The wrapper element that ToneMatrix should inject its
    *    canvas into
@@ -15,6 +15,7 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
    */
   constructor(canvasWrapperEl, clearNotesButtonEl, clipboardInputEl,
     clipboardButtonEl, muteButtonEl) {
+    // emits when any error occurs
     Util.assert(arguments.length === 5);
 
     /**
@@ -54,7 +55,6 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
 
     this.mouseX = -1;
     this.mouseY = -1;
-
     // Clipboard input element
 
     this.clipboardInputEl = clipboardInputEl || null;
@@ -68,6 +68,9 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
 
     // eslint-disable-next-line no-new
     new ClipboardJS(clipboardButtonEl);
+
+    this.setNotes(500, 500);
+    this.setNotes(400, 400);
 
     // Mute button element
 
@@ -84,6 +87,7 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     // Listen for clicks on the canvas
 
     let arming = null; // Whether our cursor is currently turning on or turning off tiles
+
 
     function canvasClick(x, y) {
       Util.assert(arguments.length === 2);
@@ -267,5 +271,20 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
    */
   resetSharingURL() {
     this.clipboardInputEl.value = this.originalURL;
+  }
+
+  setNotes(x, y) {
+    let arming = null;
+
+    const tile = Util.pixelCoordsToTileCoords(x, y, this.WIDTH, this.HEIGHT,
+      this.c.width, this.c.height);
+    if (arming === null) arming = !this.grid.getTileValue(tile.x, tile.y);
+    this.grid.setTileValue(tile.x, tile.y, arming);
+    // Update URL fragment
+    const base64 = this.grid.toBase64();
+    if (base64) this.setSharingURL(base64);
+    else this.resetSharingURL();
+    // Make sure audio context is running
+    Tone.context.resume();
   }
 }

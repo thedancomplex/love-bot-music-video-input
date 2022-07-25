@@ -70,6 +70,9 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     new ClipboardJS(clipboardButtonEl);
 
     this.setNotes(500, 500);
+    this.setNotes(600, 0);
+    this.setNotes(600, 600);
+    this.setNotes(0, 0);
     this.setNotes(400, 400);
 
     // Mute button element

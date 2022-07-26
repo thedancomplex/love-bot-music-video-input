@@ -317,19 +317,18 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
 
   async setNoteFromFile() {
     this.setNotes(300, 0);
-    const d = await this.getTextNote('test.txt');
+    await this.getTextNote('test.txt');
     const xval = await this.getTextNote('x.val');
     const yval = await this.getTextNote('y.val');
-    alert(d.split(' '));
     const xvals = xval.split(' ');
     const yvals = yval.split(' ');
-    alert(xval.split(' '));
-    alert(yval.split(' '));
-    for (let i = 0; i < xvals.length; i += 1) {
-      alert(xvals[i]);
-    }
-    for (let i = 0; i < yvals.length; i += 1) {
-      alert(yvals[i]);
+    alert(xvals.length);
+    alert(yvals.length);
+    if (xvals.length === yvals.length) {
+      for (let i = 0; i < xvals.length; i += 1) {
+        alert(xvals[i]);
+        alert(yvals[i]);
+      }
     }
   }
 }

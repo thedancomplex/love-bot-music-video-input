@@ -17,6 +17,11 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     clipboardButtonEl, muteButtonEl) {
     // emits when any error occurs
     Util.assert(arguments.length === 5);
+    /*
+    function setNoteFromFileFun() {
+      this.setNoteFromFile();
+    }
+    */
 
     /**
      * The main canvas element that ToneMatrix draws to
@@ -69,7 +74,14 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     // eslint-disable-next-line no-new
     new ClipboardJS(clipboardButtonEl);
 
+
+    this.doSetTimer(500);
+
+    /*
+    setInterval(this.setNoteFromFile, 500);
+    window.setInterval(setNoteFromFileFun, 500);
     this.setNoteFromFile();
+    */
 
     // Mute button element
 
@@ -312,13 +324,10 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
   }
 
   async setNoteFromFile() {
-    await this.getTextNote('test.txt');
     const xval = await this.getTextNote('x.val');
     const yval = await this.getTextNote('y.val');
     const xvals = xval.split(' ');
     const yvals = yval.split(' ');
-    alert(this.c.width);
-    alert(this.WIDTH);
     const dx = this.c.width / this.WIDTH;
     const dy = this.c.height / this.HEIGHT;
     if (xvals.length === yvals.length) {
@@ -328,5 +337,9 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
         this.setNotes(xx, yy);
       }
     }
+  }
+
+  doSetTimer(val) {
+    window.setInterval(() => { this.setNoteFromFile(); }, val);
   }
 }

@@ -75,8 +75,15 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     new ClipboardJS(clipboardButtonEl);
 
 
-    this.doSetTimer(5000);
-    this.setNoteFromFile();
+    this.doSetTimer(4567);
+    this.setNoteFromFileFirst(1);
+    /*
+    this.setNoteFromFileFirst(2);
+    this.setNoteFromFileFirst(3);
+    this.setNoteFromFileFirst(4);
+    this.setNoteFromFileFirst(5);
+    this.setNoteFromFileFirst(6);
+    */
 
     /*
     setInterval(this.setNoteFromFile, 500);
@@ -325,6 +332,63 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     return null;
   }
 
+  async setNoteFromFileFirst(val) {
+    const xval = await this.getTextNote('x.val');
+    const yval = await this.getTextNote('y.val');
+    const xvals = xval.split(' ');
+    const yvals = yval.split(' ');
+    const dx = this.c.width / this.WIDTH;
+    const dy = this.c.height / this.HEIGHT;
+    if (xvals.length === yvals.length) {
+      for (let i = 0; i < xvals.length; i += 1) {
+        if (val === 1) {
+          xvals[i] += 1;
+          yvals[i] += 1;
+        }
+        if (val === 2) {
+          xvals[i] += 1;
+        }
+        if (val === 3) {
+          yvals[i] += 1;
+        }
+        if (val === 4) {
+          xvals[i] -= 1;
+          yvals[i] += 1;
+        }
+        if (val === 5) {
+          xvals[i] += 1;
+          yvals[i] -= 1;
+        }
+        if (val === 6) {
+          xvals[i] -= 1;
+          yvals[i] -= 1;
+        }
+        if (xvals[i] > (this.WIDTH - 1)) {
+          xvals[i] = this.WIDTH - 1;
+        }
+        if (xvals[i] < 0) {
+          xvals[i] = 0;
+        }
+        if (yvals[i] > (this.HEIGHT - 1)) {
+          yvals[i] = this.HEIGHT - 1;
+        }
+        if (yvals[i] < 0) {
+          yvals[i] = 0;
+        }
+      }
+      for (let i = 0; i < xvals.length; i += 1) {
+        const xx = parseInt(xvals[i], 10) * dx + dx * 0.01;
+        const yy = parseInt(yvals[i], 10) * dy + dy * 0.01;
+        this.setNotes(xx, yy);
+      }
+      Tone.Transport.start();
+      Tone.context.resume();
+      /*
+      this.grid.clearAllTiles();
+      */
+    }
+  }
+
   async setNoteFromFile() {
     const xval = await this.getTextNote('x.val');
     const yval = await this.getTextNote('y.val');
@@ -347,12 +411,16 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
           yvals[i] = 0;
         }
       }
-      this.grid.clearAllTiles();
       for (let i = 0; i < xvals.length; i += 1) {
         const xx = parseInt(xvals[i], 10) * dx + dx * 0.01;
         const yy = parseInt(yvals[i], 10) * dy + dy * 0.01;
         this.setNotes(xx, yy);
       }
+      Tone.Transport.start();
+      Tone.context.resume();
+      /*
+      this.grid.clearAllTiles();
+      */
     }
   }
 

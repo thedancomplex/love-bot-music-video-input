@@ -75,7 +75,7 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     new ClipboardJS(clipboardButtonEl);
 
 
-    this.doSetTimer(500);
+    this.doSetTimer(5000);
 
     /*
     setInterval(this.setNoteFromFile, 500);
@@ -331,6 +331,7 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     const dx = this.c.width / this.WIDTH;
     const dy = this.c.height / this.HEIGHT;
     if (xvals.length === yvals.length) {
+      this.grid.clearAllTiles();
       for (let i = 0; i < xvals.length; i += 1) {
         const xx = parseInt(xvals[i], 10) * dx + dx * 0.01;
         const yy = parseInt(yvals[i], 10) * dy + dy * 0.01;

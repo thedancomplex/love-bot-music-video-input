@@ -69,11 +69,6 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     // eslint-disable-next-line no-new
     new ClipboardJS(clipboardButtonEl);
 
-    this.setNotes(500, 500);
-    this.setNotes(600, 0);
-    this.setNotes(600, 600);
-    this.setNotes(0, 0);
-    this.setNotes(400, 400);
     this.setNoteFromFile();
 
     // Mute button element
@@ -306,7 +301,8 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
   }
 
   async getTextNote(val) {
-    this.setNotes(50, 50);
+    this.mouseX = -1;
+    this.mouseY = -1;
     const response = await fetch(val);
     if (response.status === 200) {
       const data = await response.text();
@@ -316,18 +312,20 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
   }
 
   async setNoteFromFile() {
-    this.setNotes(300, 0);
     await this.getTextNote('test.txt');
     const xval = await this.getTextNote('x.val');
     const yval = await this.getTextNote('y.val');
     const xvals = xval.split(' ');
     const yvals = yval.split(' ');
-    alert(xvals.length);
-    alert(yvals.length);
+    alert(this.c.width);
+    alert(this.WIDTH);
+    const dx = this.c.width / this.WIDTH;
+    const dy = this.c.height / this.HEIGHT;
     if (xvals.length === yvals.length) {
       for (let i = 0; i < xvals.length; i += 1) {
-        alert(xvals[i]);
-        alert(yvals[i]);
+        const xx = parseInt(xvals[i], 10) * dx + dx * 0.01;
+        const yy = parseInt(yvals[i], 10) * dy + dy * 0.01;
+        this.setNotes(xx, yy);
       }
     }
   }

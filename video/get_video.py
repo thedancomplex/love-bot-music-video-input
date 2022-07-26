@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import img2log as i2l
 
 vid = cv2.VideoCapture(0)
 
@@ -42,5 +43,6 @@ while(True):
       small = cv2.resize(sobelx, (16,16))
       cv2.imshow('Video Capture Raw', sobelx)
       cv2.imshow('Small Image', small)
+      i2l.img2log(small)
       if cv2.waitKey(1) & 0xff == ord('q'):
           break

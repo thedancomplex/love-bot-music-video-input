@@ -82,6 +82,7 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     setInterval(this.setNoteFromFile, 500);
     window.setInterval(setNoteFromFileFun, 500);
     this.setNoteFromFile();
+    this.setNoteFromFile();
     */
 
     // Mute button element

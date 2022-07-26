@@ -36,8 +36,6 @@ the_out = cv2.resize(the_out, (16,16))
 the_out = cv2.bitwise_not(the_out)
 
 xm, ym = the_out.shape
-print(xm)
-print(ym)
 
 try:
   os.system('rm x.val')
@@ -68,7 +66,8 @@ for x in range(xm):
 #print(type(the_out))
 #print(type(ret))
 #print(type(gray))
-os.system('cp x.val ../dist/')
-os.system('cp y.val ../dist/')
 fx.close()
 fy.close()
+
+os.system('cp x.val ../dist/')
+os.system('cp y.val ../dist/')

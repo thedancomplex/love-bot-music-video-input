@@ -1,4 +1,3 @@
-const fs = require('fs');
 /* global ClipboardJS */
 /* global Tone */
 /* global Grid */
@@ -293,21 +292,44 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     Tone.context.resume();
   }
 
-  setNoteFromFile() {
-    this.setNotes(300, 0);
-    fs.readFile('https://love-bot.xyz/synth/test.txt', 'utf8', (err, data) => {
-      if (err) {
-        alert(err);
-        return;
-      }
-      alert(data);
-    });
+  getTextNote2(val) {
+    this.setNotes(50, 50);
+    return fetch(val)
+      .then((response) => {
+        response.text();
+        return response.text();
+      })
+      .then((data) => {
+        alert(data);
+        return data.text();
+      });
+  }
 
-    /*
-    const file = new FileReader();
-    let a = file.readAsText('/synth/test.txt');
-    alert(a);
-    a = 'dan';
-    */
+  async getTextNote(val) {
+    this.setNotes(50, 50);
+    const response = await fetch(val);
+    if (response.status === 200) {
+      const data = await response.text();
+      return data;
+    }
+    return null;
+  }
+
+  async setNoteFromFile() {
+    this.setNotes(300, 0);
+    const d = await this.getTextNote('test.txt');
+    const xval = await this.getTextNote('x.val');
+    const yval = await this.getTextNote('y.val');
+    alert(d.split(' '));
+    const xvals = xval.split(' ');
+    const yvals = yval.split(' ');
+    alert(xval.split(' '));
+    alert(yval.split(' '));
+    for (let i = 0; i < xvals.length; i += 1) {
+      alert(xvals[i]);
+    }
+    for (let i = 0; i < yvals.length; i += 1) {
+      alert(yvals[i]);
+    }
   }
 }

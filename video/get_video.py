@@ -39,6 +39,8 @@ while(True):
       final = cv2.normalize(gray, norm, 0, 255, norm_type=cv2.NORM_MINMAX)
       sobelx = cv2.Sobel(src=final, ddepth=cv2.CV_64F, dx=1, dy=0, ksize=5)
       ret, thresh = cv2.threshold(final, 0, 128, cv2.THRESH_BINARY)
+      small = cv2.resize(sobelx, (16,16))
       cv2.imshow('Video Capture Raw', sobelx)
+      cv2.imshow('Small Image', small)
       if cv2.waitKey(1) & 0xff == ord('q'):
           break

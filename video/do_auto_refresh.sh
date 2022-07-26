@@ -6,6 +6,6 @@ while [ 1 -gt 0 ]
 do
         sshpass -p $THE_PASS scp *.val lovebot@love-bot.xyz:$THE_DIR
         echo -n '.'
-        sleep 1
+        sleep 5
 done
 

@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import img2log as i2l
+import time
 
 vid = cv2.VideoCapture(0)
 
@@ -40,9 +41,22 @@ while(True):
       final = cv2.normalize(gray, norm, 0, 255, norm_type=cv2.NORM_MINMAX)
       sobelx = cv2.Sobel(src=final, ddepth=cv2.CV_64F, dx=1, dy=0, ksize=5)
       ret, thresh = cv2.threshold(final, 0, 128, cv2.THRESH_BINARY)
-      small = cv2.resize(sobelx, (16,16))
-      cv2.imshow('Video Capture Raw', sobelx)
+
+      mask = sobelx
+      kernel    = np.ones((5,5), np.uint8)
+      #mask = cv2.dilate(mask,kernel, iterations=1)
+      mask = cv2.erode(mask,kernel, iterations=1)
+      mask = cv2.erode(mask,kernel, iterations=1)
+
+
+      small = cv2.resize(mask, (16,16))
+      small_large = cv2.resize(small, (320,320))
+      smalli = cv2.bitwise_not(small)
+      cv2.imshow('Video Capture Raw', mask)
+      cv2.imshow('Small Large Img', small_large)
+
+
       cv2.imshow('Small Image', small)
-      i2l.img2log(small)
-      if cv2.waitKey(1) & 0xff == ord('q'):
+      i2l.img2log(smalli)
+      if cv2.waitKey(3000) & 0xff == ord('q'):
           break

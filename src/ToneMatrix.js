@@ -76,7 +76,7 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
 
 
     this.doSetTimer(4567);
-    this.setNoteFromFileFirst(1);
+    this.setNoteFromFileFirst(4);
     /*
     this.setNoteFromFileFirst(2);
     this.setNoteFromFileFirst(3);

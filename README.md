@@ -1,3 +1,7 @@
+# Auto Audio based on ToneMatrix Redux
+
+This program takes various types of data from online and automatically converts it into a format that the ToneMatrix can understand.  The resulting song/pattern is then automatically played.  This is a part of the "Love-Bot" series by Daniel M. Lofaro and Elena Knox. - 2022
+
 # ToneMatrix Redux
 
 Click on the boxes and make music! This project is an HTML5 revival of [ToneMatrix by Audiotool](https://tonematrix.audiotool.com/), which was originally written in Flash.

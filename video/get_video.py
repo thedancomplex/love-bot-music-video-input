@@ -7,15 +7,22 @@ while(True):
       s = frame.shape
       print(s)
       cimg = None
-      xr = None
-      yr = None
+      xstart = None
+      ystart = None
+      xend   = None
+      yend   = None
+
       if (s[0] < s[1]):
-          xr = range(s[0])
-          yr = range(s[0])
+          xstart = 0
+          xend   = s[0]
+          ystart = 0
+          yend   = s[0]
       else:
-          xr = range(s[1])
-          yr = range(s[1])
-      cimg = frame[xr, yr]
+          xstart = 0
+          xend   = s[1]
+          ystart = 0
+          yend   = s[1]
+      cimg = frame[xstart:xend, ystart:yend]
       cv2.imshow('Video Capture Raw', cimg)
       if cv2.waitKey(1) & 0xff == ord('q'):
           break

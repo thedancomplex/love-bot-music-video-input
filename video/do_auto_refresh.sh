@@ -1,4 +1,4 @@
-echo 'Auto upload djap.png.cropped.color'
+echo 'Auto upload x.val and y.val'
 THE_PASS=$(cat ~/.pass/lb-music.pass)
 THE_DIR='~/lb-music.d/'
 mkdir -p $THE_DIR

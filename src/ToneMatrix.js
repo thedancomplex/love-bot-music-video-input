@@ -331,6 +331,20 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     const dx = this.c.width / this.WIDTH;
     const dy = this.c.height / this.HEIGHT;
     if (xvals.length === yvals.length) {
+      for (let i = 0; i < xvals.length; i += 1) {
+        if (xvals[i] > (this.WIDTH - 1)) {
+          xvals[i] = this.WIDTH - 1;
+        }
+        if (xvals[i] < 0) {
+          xvals[i] = 0;
+        }
+        if (yvals[i] > (this.HEIGHT - 1)) {
+          yvals[i] = this.HEIGHT - 1;
+        }
+        if (yvals[i] < 0) {
+          yvals[i] = 0;
+        }
+      }
       this.grid.clearAllTiles();
       for (let i = 0; i < xvals.length; i += 1) {
         const xx = parseInt(xvals[i], 10) * dx + dx * 0.01;

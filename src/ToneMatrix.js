@@ -41,13 +41,13 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
      * The width of the grid, measured in grid tiles
      * @const {number}
      */
-    this.WIDTH = 16;
+    this.WIDTH = 32;
 
     /**
      * The height of the grid, measured in grid tiles
      * @const {number}
      */
-    this.HEIGHT = 16;
+    this.HEIGHT = 32;
 
     // Get the size of the canvas in CSS pixels.
     // Give the canvas pixel dimensions of their CSS

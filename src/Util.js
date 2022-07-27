@@ -66,6 +66,8 @@ class Util { // eslint-disable-line no-unused-vars
    * @param {boolean} fill - Whether the rectangle should be filled
    * @param {boolean} stroke - Whether the rectangle should be stroked
    */
+  // static drawRoundedRectangle(ctx, x, y, width, height, radius = 5,
+  //    fill = false, stroke = true) {
   static drawRoundedRectangle(ctx, x, y, width, height, radius = 5, fill = false, stroke = true) {
     Util.assert(arguments.length >= 5 && arguments.length <= 8);
     ctx.beginPath();

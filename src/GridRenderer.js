@@ -79,13 +79,14 @@ class GridRenderer { // eslint-disable-line no-unused-vars
         if (gridx === playheadX) {
           this.ctx.globalAlpha = 1;
           this.spriteSheet.drawSprite(2, this.ctx, x, y);
+          // this.spriteSheet.drawSprite(2, this.ctx, x, y);
           if (playheadX !== this.lastPlayheadX) {
             // Create particles
             this.particleSystem.createParticleBurst(
               dx * (gridx + 0.5),
               dy * (gridy + 0.5),
               8 * dpr,
-              20,
+              120,
             );
           }
         } else {
@@ -114,6 +115,7 @@ class GridRenderer { // eslint-disable-line no-unused-vars
         this.ctx.globalAlpha = 1;
         this.ctx.fillStyle = 'white';
         this.ctx.fillRect(p.x, p.y, 2, 2);
+        // this.ctx.fillRect(p.x, p.y, 2, 2);
       }
     }
 

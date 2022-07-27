@@ -68,7 +68,10 @@ class SynthInstrument { // eslint-disable-line no-unused-vars
   scheduleNote(gridX, gridY) {
     Util.assert(arguments.length === 2);
     // Cycle through the voices
-    const noteDuration = Tone.Time('1m') / this.gridWidth;
+    // const noteDuration = Tone.Time('2m') / this.gridWidth;
+    const noteDuration = Tone.Time('4m') / this.gridWidth;
+    // noteDuration *= gridX;
+    // alert(noteDuration);
     const playEvent = Tone.Transport.schedule((time) => {
       const highVolume = -10; // When one note is playing
       const lowVolume = -20; // When all notes are playing (lower volume to prevent peaking)
@@ -85,6 +88,8 @@ class SynthInstrument { // eslint-disable-line no-unused-vars
         // eslint-disable-next-line no-console
         if (Util.DEBUG) console.warn('Note play failure:', e);
       }
+    // }, '16:0:0');
+    // }, gridX * noteDuration);
     }, gridX * noteDuration);
     this.notes[playEvent] = { x: gridX, y: gridY };
     this.polyphony[gridX] += 1;

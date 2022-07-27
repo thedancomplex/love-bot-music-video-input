@@ -173,7 +173,7 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
       }
     });
 
-    Tone.Transport.loopEnd = '1m'; // loop at one measure
+    Tone.Transport.loopEnd = '4m'; // loop at one measure -  this changes tempo
     Tone.Transport.loop = true;
     Tone.Transport.start();
 

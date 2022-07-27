@@ -31,6 +31,7 @@ class ParticleSystem { // eslint-disable-line no-unused-vars
     if (this.lastUpdate !== 0) {
       const now = Date.now();
       const deltaTime = (now - this.lastUpdate) / 16.67; // 60fps is a time factor of 1
+      // const deltaTime = (now - this.lastUpdate) / 33.14; // 60fps is a time factor of 1
       for (let i = 0; i < this.PARTICLE_POOL_SIZE; i += 1) {
         const p = this.particles[i];
         if (p.life > 0) {
@@ -71,6 +72,8 @@ class ParticleSystem { // eslint-disable-line no-unused-vars
     p.y = y;
     p.vx = vx;
     p.vy = vy;
+    // p.vx = vx;
+    // p.vy = vy;
     p.life = this.PARTICLE_LIFETIME;
     this.oldestParticle += 1;
     if (this.oldestParticle >= this.PARTICLE_POOL_SIZE) this.oldestParticle = 0;

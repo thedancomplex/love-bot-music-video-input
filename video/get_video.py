@@ -49,7 +49,7 @@ while(True):
       mask = cv2.erode(mask,kernel, iterations=1)
 
 
-      small = cv2.resize(mask, (16,16))
+      small = cv2.resize(mask, (32,32))
       small_large = cv2.resize(small, (320,320))
       smalli = cv2.bitwise_not(small)
       cv2.imshow('Video Capture Raw', mask)

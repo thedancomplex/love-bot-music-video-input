@@ -293,9 +293,10 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     this.clipboardInputEl.value = this.originalURL;
   }
 
-  setNotes(x, y) {
+  setNotes(xx, yy) {
     let arming = null;
-
+    const x = this.getXp(xx);
+    const y = this.getYp(yy);
     const tile = Util.pixelCoordsToTileCoords(x, y, this.WIDTH, this.HEIGHT,
       this.c.width, this.c.height);
     if (arming === null) arming = true;
@@ -308,19 +309,26 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     Tone.context.resume();
   }
 
-  clearNotes(x, y) {
-    let arming = null;
-
+  clearNotes(xx, yy) {
+    const x = this.getXp(xx);
+    const y = this.getYp(yy);
     const tile = Util.pixelCoordsToTileCoords(x, y, this.WIDTH, this.HEIGHT,
       this.c.width, this.c.height);
-    if (arming === null) arming = false;
-    this.grid.setTileValue(tile.x, tile.y, arming);
+    this.grid.setTileValue(tile.x, tile.y, false);
+    // this.grid.setTileValue(tile.x, tile.y, arming);
     // Update URL fragment
     const base64 = this.grid.toBase64();
     if (base64) this.setSharingURL(base64);
     else this.resetSharingURL();
     // Make sure audio context is running
     Tone.context.resume();
+    /*
+    let buff = 'x, y = ';
+    buff += tile.x;
+    buff += ', ';
+    buff += tile.y;
+    alert(buff);
+    */
   }
 
   toggleNotes(x, y) {
@@ -350,9 +358,7 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
   clearNotesAll() {
     for (let ix = 0; ix < this.WIDTH; ix += 1) {
       for (let iy = 0; iy < this.HEIGHT; iy += 1) {
-        if (this.getNotes(ix, iy)) {
-          this.clearNotes(ix, iy);
-        }
+        this.grid.setTileValue(ix, iy, false);
       }
     }
   }
@@ -386,8 +392,8 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     const yval = await this.getTextNote('y.val');
     const xvals = xval.split(' ');
     const yvals = yval.split(' ');
-    const dx = this.c.width / this.WIDTH;
-    const dy = this.c.height / this.HEIGHT;
+    // const dx = this.c.width / this.WIDTH;
+    // const dy = this.c.height / this.HEIGHT;
     if (xvals.length === yvals.length) {
       for (let i = 0; i < xvals.length; i += 1) {
         if (val === 1) {
@@ -426,8 +432,8 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
         }
       }
       for (let i = 0; i < xvals.length; i += 1) {
-        const xx = parseInt(xvals[i], 10) * dx + dx * 0.01;
-        const yy = parseInt(yvals[i], 10) * dy + dy * 0.01;
+        const xx = parseInt(xvals[i], 10);
+        const yy = parseInt(yvals[i], 10);
         this.setNotes(xx, yy);
       }
       Tone.Transport.start();
@@ -438,13 +444,25 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     }
   }
 
+  getXp(x) {
+    const dx = this.c.width / this.WIDTH;
+    const xx = parseInt(x, 10) * dx + dx * 0.001;
+    return xx;
+  }
+
+  getYp(y) {
+    const dy = this.c.height / this.HEIGHT;
+    const yy = parseInt(y, 10) * dy + dy * 0.001;
+    return yy;
+  }
+
   async setNoteFromFileToggleNoClear() {
     const xval = await this.getTextNote('x.val');
     const yval = await this.getTextNote('y.val');
     const xvals = xval.split(' ');
     const yvals = yval.split(' ');
-    const dx = this.c.width / this.WIDTH;
-    const dy = this.c.height / this.HEIGHT;
+    // const dx = this.c.width / this.WIDTH;
+    // const dy = this.c.height / this.HEIGHT;
     if (xvals.length === yvals.length) {
       for (let i = 0; i < xvals.length; i += 1) {
         if (xvals[i] > (this.WIDTH - 1)) {
@@ -464,8 +482,8 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
       this.grid.clearAllTiles();
       */
       for (let i = 0; i < xvals.length; i += 1) {
-        const xx = parseInt(xvals[i], 10) * dx + dx * 0.01;
-        const yy = parseInt(yvals[i], 10) * dy + dy * 0.01;
+        const xx = parseInt(xvals[i], 10);
+        const yy = parseInt(yvals[i], 10);
         this.setNotes(xx, yy);
       }
       Tone.Transport.start();
@@ -481,8 +499,8 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     const yval = await this.getTextNote('y.val');
     const xvals = xval.split(' ');
     const yvals = yval.split(' ');
-    const dx = this.c.width / this.WIDTH;
-    const dy = this.c.height / this.HEIGHT;
+    // const dx = this.c.width / this.WIDTH;
+    // const dy = this.c.height / this.HEIGHT;
     if (xvals.length === yvals.length) {
       for (let i = 0; i < xvals.length; i += 1) {
         if (xvals[i] > (this.WIDTH - 1)) {
@@ -498,13 +516,11 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
           yvals[i] = 0;
         }
       }
-      /*
-      this.grid.clearAllTiles();
-      */
+      // this.grid.clearAllTiles();
       this.clearNotesAll();
       for (let i = 0; i < xvals.length; i += 1) {
-        const xx = parseInt(xvals[i], 10) * dx + dx * 0.01;
-        const yy = parseInt(yvals[i], 10) * dy + dy * 0.01;
+        const xx = parseInt(xvals[i], 10);
+        const yy = parseInt(yvals[i], 10);
         this.setNotes(xx, yy);
       }
       Tone.Transport.start();

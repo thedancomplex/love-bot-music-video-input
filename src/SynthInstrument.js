@@ -16,7 +16,7 @@ class SynthInstrument { // eslint-disable-line no-unused-vars
     // Construct scale array
 
     const pentatonic = ['B#', 'D', 'F', 'G', 'A'];
-    const octave = 3; // base octave
+    const octave = 2; // base octave
     const octaveoffset = 4;
     const scale = Array(gridHeight);
     for (let i = 0; i < gridHeight; i += 1) {

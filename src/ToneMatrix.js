@@ -92,6 +92,9 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     this.setNoteFromFile();
     */
 
+    // Set Instroment 
+    this.grid.setCurrentInstrument(4); // 0 through 9, numpad
+
     // Mute button element
 
     muteButtonEl.addEventListener('click', () => {

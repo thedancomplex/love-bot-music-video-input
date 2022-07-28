@@ -74,7 +74,6 @@ class ToneMatrix { // eslint-disable-line no-unused-vars
     // eslint-disable-next-line no-new
     new ClipboardJS(clipboardButtonEl);
 
-
     this.doSetTimer(500);
     this.setNoteFromFileFirst(4);
     /*

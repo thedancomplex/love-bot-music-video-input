@@ -24,7 +24,6 @@ class SynthInstrument { // eslint-disable-line no-unused-vars
         + (octave + Math.floor((i + octaveoffset) / pentatonic.length));
     }
     this.scale = scale.reverse(); // higher notes at lower y values, near the top
-
     // Pre-render synth
 
     this.numVoices = 3; // Number of voices (players) *per note*
@@ -53,6 +52,13 @@ class SynthInstrument { // eslint-disable-line no-unused-vars
         Tone.setContext(Tone.context); // Hopefully there's no weird asynchronicity issue here
         const player = new Tone.Player(buffer);
         Tone.connect(player, Tone.Destination);
+        // const reverb = new Tone.JCReverb(0.4).toDestination();
+        // const delay = new Tone.FeedbackDelay(0.5).toDestination();
+        // const reverb = new Tone.Reverb().toDestination();
+        // Tone.connect(player, delay);
+        // Tone.connect(player, reverb);
+        // alert('added reverb');
+        // Dan add Reverb
         this.players.push(player);
       }
     });

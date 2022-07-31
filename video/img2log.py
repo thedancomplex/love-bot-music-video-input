@@ -17,6 +17,11 @@ def img2log(the_out, dest = './'):
   except:
     pass
 
+  try:
+    os.system('rm *.val')
+  except:
+    pass
+
   os.system('touch x.val')
   os.system('touch y.val')
   fx = open('x.val','a')

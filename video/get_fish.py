@@ -3,7 +3,7 @@ import numpy as np
 import img2log as i2l
 import time
 
-vid = cv2.VideoCapture(0)
+vid = cv2.VideoCapture('fish_360.mp4')
 
 while(True):
       ret, frame = vid.read()
@@ -36,6 +36,17 @@ while(True):
       cimg = frame[xstart:xend, ystart:yend]
       s = cimg.shape
       print(s)
+
+      hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+      mask2 = cv2.inRange(hsv,(0, 100, 20), (25, 255, 255) )
+      # mask = cv2.inRange(hsv,(10, 100, 20), (25, 255, 255) )
+      cv2.imshow("orange", mask2)
+      cv2.imshow('Raw Video', frame)
+
+
+
+
+
       gray = cv2.cvtColor(cimg, cv2.COLOR_BGR2GRAY)
       norm = np.zeros((xs, ys))
       final = cv2.normalize(gray, norm, 0, 255, norm_type=cv2.NORM_MINMAX)
@@ -55,8 +66,7 @@ while(True):
       cv2.imshow('Video Capture Raw', mask)
       cv2.imshow('Small Large Img', small_large)
 
-
       cv2.imshow('Small Image', small)
       i2l.img2log(smalli)
-      if cv2.waitKey(3000) & 0xff == ord('q'):
+      if cv2.waitKey(30) & 0xff == ord('q'):
           break

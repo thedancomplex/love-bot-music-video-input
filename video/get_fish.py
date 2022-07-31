@@ -65,9 +65,12 @@ while(True):
 
 
 
-      mask = sobelx
+      ###mask = sobelx
+      mask = oColor
       kernel    = np.ones((5,5), np.uint8)
       #mask = cv2.dilate(mask,kernel, iterations=1)
+      mask = cv2.erode(mask,kernel, iterations=1)
+      mask = cv2.erode(mask,kernel, iterations=1)
       mask = cv2.erode(mask,kernel, iterations=1)
       mask = cv2.erode(mask,kernel, iterations=1)
 

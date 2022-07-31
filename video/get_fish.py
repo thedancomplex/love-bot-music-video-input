@@ -45,12 +45,12 @@ while(True):
       hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
       mask2 = cv2.inRange(hsv,(0, 100, 20), (25, 255, 255) )
       # mask = cv2.inRange(hsv,(10, 100, 20), (25, 255, 255) )
-      cv2.imshow("orange", mask2)
+##      cv2.imshow("orange", mask2)
       cv2.imshow('Raw Video', frame)
       oflow = flow.doFlow(frame)
       gray_oflow = cv2.cvtColor(oflow, cv2.COLOR_BGR2GRAY)
       ret, oflow_mask = cv2.threshold(gray_oflow, 0, 128, cv2.THRESH_BINARY)
-      cv2.imshow('flow', oflow_mask)
+##      cv2.imshow('flow', oflow_mask)
 
       oColor = oflow_mask & mask2
       cv2.imshow('orange and flow', oColor)
@@ -78,10 +78,10 @@ while(True):
       small = cv2.resize(mask, (32,32))
       small_large = cv2.resize(small, (320,320))
       smalli = cv2.bitwise_not(small)
-      cv2.imshow('Video Capture Raw', mask)
+##      cv2.imshow('Video Capture Raw', mask)
       cv2.imshow('Small Large Img', small_large)
 
-      cv2.imshow('Small Image', small)
+##      cv2.imshow('Small Image', small)
       i2l.img2log(smalli)
       if cv2.waitKey(30) & 0xff == ord('q'):
           break
